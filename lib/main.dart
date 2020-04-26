@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+
+final _form = GlobalKey<FormState>();
+
 void main() {
   runApp(MyApp());
 }
@@ -8,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Demo Application [Flutter]',
+      title: 'Melody Chat',
       theme: ThemeData(
         brightness: Brightness.light,
         primaryColor: Colors.black,
@@ -19,49 +22,64 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class MainScreen extends StatelessWidget {
   @override
    Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Demo Application [Flutter]'),
+          title: Text('Melody Chat'),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children:[
-            RaisedButton(
-              highlightColor: Colors.grey,
-              color: Colors.black,
-              textColor: Colors.white,
-              onPressed: () {
-                print("hahaha");
-                print(1+1);
-              },
-              child:Text("Testing"),
-              ),
-
-            RaisedButton(
-              highlightColor: Colors.cyan,
-              color: Colors.blue,
-              textColor: Colors.white,
-              onPressed: () {
-                print("Launching Second Activity");
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SecondRoute()),
-                );
-              },
-              child: Text("Click Here To Enter Second Activity"),
-            )
+            Form(
+              key: _form,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: "Enter Your Email",
+                    ),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Please Enter Your Email";
+                      } return null;
+                    },
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: "Enter Your Password",
+                    ),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Please Enter Your Password";
+                      } return null;
+                    },
+                  ),
+                  Padding(padding: const EdgeInsets.symmetric(vertical:10.0),
+                  child: RaisedButton(
+                    color: Colors.blue,
+                    highlightColor: Colors.cyan,
+                    onPressed: () {
+                    if ( _form.currentState.validate() ) {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SecondRoute()));
+                    }
+                  },
+                    child: Text("Login"),
+                  )
+                  )
+                ],
+              ),)
           ]
         ),
     );
   }
-
-
 }
 
 // Second Screen
 class SecondRoute extends StatelessWidget {
+  // Navigator.push(context, MaterialPageRoute(builder: (context) => SecondRoute()));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
