@@ -36,6 +36,16 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Melody Chat'),
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  Text("Testing");
+                },
+                child: Icon(Icons.more_vert),
+              ))
+        ],
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Form(
@@ -50,10 +60,11 @@ class MainScreen extends StatelessWidget {
                 validator: (value) {
                   if (value.isEmpty || !(value.contains("John"))) {
                     return "Please Enter A Valid Email";
-                  } else if (value.contains("Admin") || value.contains("admin")){
+                  } else if (value.contains("Admin") ||
+                      value.contains("admin")) {
                     print("Some Idiot Trying to Access");
                     return "Hacker Not Welcome Here.";
-                  } else{
+                  } else {
                     return null;
                   }
                 },
