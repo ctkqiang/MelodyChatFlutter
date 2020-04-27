@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
 
 // http://quabr.com:8182/59396462/implement-a-java-local-library-to-flutter-plugin-template
 final _form = GlobalKey<FormState>();
@@ -19,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Melody Chat',
+      title: 'Melody Application',
       theme: ThemeData(
         brightness: Brightness.light,
         primaryColor: Colors.black,
@@ -41,9 +42,11 @@ class MainScreen extends StatelessWidget {
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
-                  Text("Testing");
+                  print("Camera");
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ThirdRoute()));
                 },
-                child: Icon(Icons.more_vert),
+                child: Icon(Icons.camera),
               ))
         ],
       ),
@@ -87,10 +90,8 @@ class MainScreen extends StatelessWidget {
                     highlightColor: Colors.cyan,
                     onPressed: () {
                       if (_form.currentState.validate()) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SecondRoute()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => ThirdRoute()));
                       }
                     },
                     child: Text("Login"),
@@ -113,5 +114,20 @@ class SecondRoute extends StatelessWidget {
         title: Text("Melody Chat"),
       ),
     );
+  }
+}
+
+class ThirdRoute extends StatefulWidget {
+  final CameraDescription camera;
+
+  const ThirdRoute({
+    Key key,
+    @required this.camera,
+  }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return null;
   }
 }
